@@ -23,4 +23,3 @@ def wachtwoord():
 
 password = wachtwoord()
 print(password)
-

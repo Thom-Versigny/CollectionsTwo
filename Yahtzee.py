@@ -1,21 +1,39 @@
 import random
-over=5
-houden = []
+scoren=[]
 dobbelcijfers = [1,2,3,4,5,6]
 def gooien():
-    global over
     gegooit = []
-    for x in range(over):
+    for x in range(5):
         gegooit.append(random.choice(dobbelcijfers))
-    while True:
+    for x in range(3):
         print(gegooit)
-        if input('wilt u dobbelstenen houden? j/n: ').lower()=='n':
-            over = len(gegooit)
-            return houden
+        keuze = input('welke dobbelsteen wilt u opnieuw gooien? ')
+        keuze = keuze.split()
+        if keuze[0] == '0':
+            return gegooit
         else:
-            keuze = int(input('welk dobbelsteen wilt u houden? '))
-            houden.append(gegooit[keuze-1])
-            gegooit.pop(keuze-1)
+            for x in range(len(keuze)):
+                keuze = [int(x) for x in keuze]
+                gegooit[keuze[x]-1] = random.choice(dobbelcijfers)
+    return gegooit
 
-gooien()
-print(houden)
+def score():
+    print(gegooit)
+    keuze = int(input('op welke dobbelsteen wilt u scoren? '))
+    scorendobbel= gegooit.count(keuze)
+    scoren.append(scorendobbel*keuze)
+    print(f'jouw score is: {scoren}')
+    return
+
+def eindscoren():
+    eindscore = sum(scoren)
+    if eindscore >= 63:
+        print(f'Omdat uw score {eindscore} krijgt u 35 punten als bonus')
+        eindscore = eindscore + 35
+    return eindscore
+
+for x in range(6):
+    gegooit = gooien()
+    score() 
+eindscore = eindscoren()
+print(f'jouw eind scoren is: {eindscore}')
